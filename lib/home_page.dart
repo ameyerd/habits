@@ -19,11 +19,48 @@ class _HomePageState extends State<HomePage> {
   //   print("adding habit");
   // }
 
-  Widget buildSheet() => Container();
+  Widget buildSheet() => Container(
+        child: Column(
+          children: [
+            Row(
+              children: const [
+                Padding(
+                  padding: EdgeInsets.only(left: 30, top: 20),
+                  child: Text(
+                    'Add Habit',
+                    style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w800),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: const [
+                SizedBox(
+                  width: 400,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 30.0, top: 10),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black, width: 3),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: Container(
         padding: const EdgeInsets.only(left: 20, right: 20),
