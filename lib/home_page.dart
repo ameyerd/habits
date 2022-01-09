@@ -106,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 30.0, top: 20),
                     child: TextField(
+                      maxLength: 1,
                       controller: controller,
                       keyboardType:
                           const TextInputType.numberWithOptions(signed: true),
