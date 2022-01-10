@@ -25,7 +25,7 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xffeff5ff),
+        backgroundColor: const Color(0xffE8E8FF),
         onTap: onTap,
         currentIndex: currentIndex,
         selectedItemColor: Colors.black,
