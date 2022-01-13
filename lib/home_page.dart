@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,9 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List habitData = ['habit one', 'habit two', 'habit three'];
+  List habits = ['drink water', 'workout', 'study'];
+  Color _expandedColor = Colors.black;
+
   bool isButtonActive = false;
   TextEditingController? controller;
+
+  TextEditingController _habitName = TextEditingController();
 
   @override
   void initState() {
@@ -33,14 +38,6 @@ class _HomePageState extends State<HomePage> {
 
     super.dispose();
   }
-
-  // void insertHabit() {
-  //   final newIndex = habitData.length;
-  //   const newHabit = 'habit four';
-  //
-  //   habitData.insert(newIndex, newHabit);
-  //   print("adding habit");
-  // }
 
   Widget buildSheet() => Container(
         height: 500,
@@ -66,8 +63,9 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   padding: const EdgeInsets.only(left: 30, top: 20),
                   width: 400,
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    controller: _habitName,
+                    decoration: const InputDecoration(
                       hintText: 'Habit name',
                       hintStyle:
                           TextStyle(fontSize: 25, color: Color(0xffe5e5e5)),
@@ -148,9 +146,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       onPressed: isButtonActive
                           ? () {
+                              var _habit = _habitName.text;
+                              final newIndex = habits.length;
+
                               setState(() => isButtonActive = false);
                               controller!.clear();
                               Navigator.of(context).pop();
+                              habits.insert(newIndex, _habit);
                             }
                           : null,
                       child: const Text(
@@ -175,6 +177,8 @@ class _HomePageState extends State<HomePage> {
       resizeToAvoidBottomInset: true,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: Container(
           padding: const EdgeInsets.only(left: 20, right: 20),
           child: Column(
@@ -204,24 +208,74 @@ class _HomePageState extends State<HomePage> {
                       color: const Color(0xffECE8FF),
                       borderRadius: BorderRadius.circular(20.0)),
                   alignment: Alignment.center,
-                  child: ListView.builder(
-                    itemCount: habitData.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Center(
-                          child: SizedBox(
-                            width: 3050,
-                            height: 80,
-                            child: Card(
-                              child: ListTile(
-                                title: Text('${habitData[index]}'),
-                              ),
-                            ),
+                  child: SizedBox(
+                    height: 1000,
+                    child: ListView(
+                      children: [
+                        LinearPercentIndicator(
+                          animation: true,
+                          padding: EdgeInsets.only(left: 100, bottom: 20),
+                          width: 300,
+                          lineHeight: 20,
+                          percent: 0.7,
+                          progressColor: const Color(0xff7b61ff),
+                          backgroundColor: Colors.white,
+                        ),
+                        Container(
+                          width: 360,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: habits.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Card(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(20.0)),
+                                  child: Theme(
+                                    data: Theme.of(context).copyWith(
+                                        dividerColor: Colors.transparent),
+                                    child: ExpansionTile(
+                                      // onExpansionChanged: (expanded) {
+                                      //   setState(() {
+                                      //     if (expanded) {
+                                      //       _expandedColor = const Color(0xff7b61ff);
+                                      //     } else {
+                                      //       _expandedColor = Colors.black;
+                                      //     }
+                                      //   });
+                                      // },
+                                      leading: const Icon(
+                                        Icons.favorite,
+                                        color: Color(0xffece8ff),
+                                      ),
+                                      title: Text(
+                                        '${habits[index]}',
+                                        style: const TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      children: [
+                                        ListTile(
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 40),
+                                          onTap: () {},
+                                          title: const Text('hi'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
                           ),
                         ),
-                      );
-                    },
+                      ],
+                    ),
                   ),
                 ),
               ]),
@@ -255,3 +309,59 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// class Habit {
+//   int id;
+//   String name;
+//   int days;
+//
+//   Habit(this.id, this.name, this.days);
+// }
+
+// child: ListView.builder(
+//   itemCount: habitData.length,
+//   itemBuilder: (BuildContext context, int index) {
+//     return Padding(
+//       padding: const EdgeInsets.all(20.0),
+//       child: Center(
+//         child: SizedBox(
+//           width: 3050,
+//           height: 80,
+//           child: Card(
+//             child: ListTile(
+//               title: Text('${habitData[index]}'),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   },
+// ),
+
+// working  !!!
+// Container(
+// width: 400,
+// child: ListView(
+// children: [
+// Padding(
+// padding: const EdgeInsets.all(10.0),
+// child: Card(
+// shape: RoundedRectangleBorder(
+// borderRadius: BorderRadius.circular(20.0)),
+// child: ExpansionTile(
+// leading: Icon(Icons.restaurant_menu_outlined),
+// title: Text('Test'),
+// children: [
+// ListTile(
+// contentPadding:
+// EdgeInsets.symmetric(horizontal: 40),
+// onTap: () {},
+// title: Text('Test description'),
+// ),
+// ],
+// ),
+// ),
+// ),
+// ],
+// ),
+// ),

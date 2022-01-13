@@ -14,6 +14,31 @@ class _SettingsPageState extends State<SettingsPage> {
 
   bool switchValue = true;
 
+  void _showDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: const Text('Sign Out'),
+          content: const Text('Do you really want to sign out?'),
+          actions: [
+            MaterialButton(
+              onPressed: () {},
+              child: const Text('Yes'),
+            ),
+            MaterialButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,7 +220,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                   primary: const Color(0xff7b61ff),
                                   onPrimary: Colors.white,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _showDialog();
+                                },
                                 child: const Text(
                                   'Sign out',
                                   style: TextStyle(
