@@ -68,9 +68,12 @@ class _HomePageState extends State<HomePage> {
                   width: 400,
                   child: const TextField(
                     decoration: InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 3),
-                      ),
+                      hintText: 'Habit name',
+                      hintStyle:
+                          TextStyle(fontSize: 25, color: Color(0xffe5e5e5)),
+                      filled: true,
+                      fillColor: Color(0xfff6f6f6),
+                      enabledBorder: InputBorder.none,
                       focusedBorder: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Color(0xff7b61ff), width: 3),
@@ -114,9 +117,12 @@ class _HomePageState extends State<HomePage> {
                         FilteringTextInputFormatter.digitsOnly,
                       ],
                       decoration: const InputDecoration(
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey, width: 3),
-                        ),
+                        hintText: '#',
+                        hintStyle:
+                            TextStyle(fontSize: 25, color: Color(0xffe5e5e5)),
+                        filled: true,
+                        fillColor: Color(0xfff6f6f6),
+                        enabledBorder: InputBorder.none,
                         focusedBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Color(0xff7b61ff), width: 3),
